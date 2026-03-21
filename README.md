@@ -56,8 +56,8 @@ One Admin → Many Assignments (1:N)
 One Category → Many Projects (1:N)
 
 🗂 Database Tables
-📌 CLIENT
 
+📌 CLIENT
 Stores details of clients who post projects.
 
 📌 STUDENT
