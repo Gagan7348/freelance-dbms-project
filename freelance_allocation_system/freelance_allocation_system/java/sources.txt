@@ -1,0 +1,16 @@
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\CheckUsers.java
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\Main.java
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\PopulateData.java
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\TestFix.java
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\TestSQLiteDate.java
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\dao\ProjectDAO.java
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\dao\UserDAO.java
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\gui\AdminDashboard.java
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\gui\ClientDashboard.java
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\gui\LoginFrame.java
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\gui\StudentDashboard.java
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\model\Project.java
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\model\User.java
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\org\slf4j\Logger.java
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\org\slf4j\LoggerFactory.java
+C:\Users\Devlal\Downloads\freelance_allocation_system\freelance_allocation_system\freelance_allocation_system\java\src\util\DBConnection.java

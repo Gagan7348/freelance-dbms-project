@@ -1,0 +1,1 @@
+import javax.swing.*; public class TestGUI { public static void main(String[] args) { JFrame f = new JFrame("Test"); f.setSize(200,100); f.add(new JLabel("GUI Works!")); f.setVisible(true); try { Thread.sleep(5000); } catch(Exception e) {} } }

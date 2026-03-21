@@ -1,0 +1,15 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.sqlite.SQLiteJDBCLoader in an unnamed module (file:/C:/Users/PC/Downloads/freelance_allocation_system/freelance_allocation_system/java/lib/sqlite-jdbc.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+String format: 2026-06-01
+java.sql.SQLException: Error parsing time stamp
+	at org.sqlite.jdbc3.JDBC3ResultSet.getDate(JDBC3ResultSet.java:280)
+	at org.sqlite.jdbc3.JDBC3ResultSet.getDate(JDBC3ResultSet.java:295)
+	at TestSQLiteDate.main(TestSQLiteDate.java:10)
+Caused by: java.text.ParseException: Unparseable date: "2026-06-01" does not match (\p{Nd}++)\Q-\E(\p{Nd}++)\Q-\E(\p{Nd}++)\Q \E(\p{Nd}++)\Q:\E(\p{Nd}++)\Q:\E(\p{Nd}++)\Q.\E(\p{Nd}++)
+	at org.sqlite.date.FastDateParser.parse(FastDateParser.java:311)
+	at org.sqlite.date.FastDateFormat.parse(FastDateFormat.java:449)
+	at org.sqlite.jdbc3.JDBC3ResultSet.getDate(JDBC3ResultSet.java:278)
+	... 2 more
