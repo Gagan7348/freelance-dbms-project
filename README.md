@@ -57,33 +57,43 @@ One Category → Many Projects (1:N)
 
 🗂 Database Tables
 📌 CLIENT
+
 Stores details of clients who post projects.
+
 📌 STUDENT
 Maintains freelancer information, including skills.
+
 📌 PROJECT
 Contains project-related details:
 Title
 Budget
 Deadline
 Category
+
 📌 APPLICATION
 Tracks applications submitted by students for projects.
+
 📌 ASSIGNMENT
 Represents final project allocation after admin approval.
+
 📌 CATEGORY
 Classifies projects into various domains.
+
 📌 ADMIN
 Handles application review and project assignment.
 
 🔍 Features Implemented
+
 ✅ Data Definition (DDL)
 CREATE TABLE with constraints
 Primary Keys & Foreign Keys
 NOT NULL and UNIQUE constraints
+
 ✅ Data Manipulation (DML)
 INSERT
 UPDATE
 DELETE
+
 ✅ Advanced SQL
 6 SQL Views
 10+ complex queries
@@ -95,6 +105,7 @@ SUM()
 AVG()
 MAX()
 Subqueries
+
 ✅ Optimization
 Indexing for faster query execution
 Schema normalization up to 3NF
