@@ -6,8 +6,14 @@ public class PopulateData {
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement()) {
             
-            // Insert a Client
-            stmt.execute("INSERT OR IGNORE INTO users (username, password, role, email) VALUES ('client1', 'pass123', 'CLIENT', 'client1@test.com')");
+            // Insert default Admin user
+            stmt.execute("INSERT OR IGNORE INTO users (username, password, role, email) VALUES ('admin', 'admin', 'ADMIN', 'admin@test.com')");
+            
+            // Insert default Client user
+            stmt.execute("INSERT OR IGNORE INTO users (username, password, role, email) VALUES ('client1', 'pass1', 'CLIENT', 'client1@test.com')");
+            
+            // Insert default Student user
+            stmt.execute("INSERT OR IGNORE INTO users (username, password, role, email) VALUES ('student1', 'pass1', 'STUDENT', 'student1@test.com')");
             
             // Get Client ID
             ResultSet rs = stmt.executeQuery("SELECT user_id FROM users WHERE username = 'client1'");
