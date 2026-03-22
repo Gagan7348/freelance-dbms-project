@@ -50,8 +50,14 @@ public class StudentDashboard extends JFrame {
 
     private void loadApprovedProjects() {
         tableModel.setRowCount(0);
-        List<Project> approved = projectDAO.getProjectsByStatus("APPROVED");
-        for (Project p : approved) {
+        // Load both PENDING and APPROVED projects so students can see all available projects
+        List<Project> pendingProjects = projectDAO.getProjectsByStatus("PENDING");
+        List<Project> approvedProjects = projectDAO.getProjectsByStatus("APPROVED");
+        
+        for (Project p : pendingProjects) {
+            tableModel.addRow(new Object[]{p.getProjectId(), p.getTitle(), p.getBudget() + "$", p.getDeadline()});
+        }
+        for (Project p : approvedProjects) {
             tableModel.addRow(new Object[]{p.getProjectId(), p.getTitle(), p.getBudget() + "$", p.getDeadline()});
         }
     }
