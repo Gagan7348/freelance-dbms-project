@@ -20,6 +20,7 @@ public class Project {
         this.deadline = deadline;
         this.clientId = clientId;
         this.status = status;
+        this.rejectionReason = null;
     }
 
     // Getters and Setters
