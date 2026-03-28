@@ -64,7 +64,6 @@ public class ClientDashboard extends JFrame {
         panel.add(new JLabel("Deadline:"), gbc);
         gbc.gridx = 1;
         JTextField deadlineField = new JTextField(25);
-        deadlineField.setText(LocalDate.now().plusDays(30).toString());
         deadlineField.setToolTipText("Format: YYYY-MM-DD");
         panel.add(deadlineField, gbc);
 
@@ -93,7 +92,7 @@ public class ClientDashboard extends JFrame {
                     titleField.setText("");
                     descArea.setText("");
                     budgetField.setText("");
-                    deadlineField.setText(LocalDate.now().plusDays(30).toString());
+                    deadlineField.setText("");
                 } else {
                     JOptionPane.showMessageDialog(this, "Failed to post project!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
