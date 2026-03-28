@@ -16,11 +16,24 @@ public class AdminDashboard extends JFrame {
     public AdminDashboard(User admin) {
         projectDAO = new ProjectDAO();
         setTitle("Admin Dashboard - " + admin.getUsername());
-        setSize(800, 500);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        
-        setLayout(new BorderLayout());
+
+        // Create tabbed pane
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        // Tab 1: Pending Projects
+        tabbedPane.addTab("Pending Projects", createPendingProjectsPanel());
+
+        // Tab 2: Manage Deadlines
+        tabbedPane.addTab("Manage Deadlines", createManageDeadlinesPanel());
+
+        add(tabbedPane);
+    }
+
+    private JPanel createPendingProjectsPanel() {
+        JPanel panel = new JPanel(new BorderLayout());
         
         // Table for Pending Projects
         String[] columns = {"ID", "Title", "Budget", "Deadline", "Status"};
@@ -28,25 +41,133 @@ public class AdminDashboard extends JFrame {
         projectTable = new JTable(tableModel);
         loadPendingProjects();
 
-        add(new JScrollPane(projectTable), BorderLayout.CENTER);
+        panel.add(new JScrollPane(projectTable), BorderLayout.CENTER);
 
         // Buttons Panel
         JPanel btnPanel = new JPanel();
         JButton approveBtn = new JButton("Approve Project");
         JButton rejectBtn = new JButton("Reject Project");
-        JButton logoutBtn = new JButton("Logout");
 
         btnPanel.add(approveBtn);
         btnPanel.add(rejectBtn);
-        btnPanel.add(logoutBtn);
-        add(btnPanel, BorderLayout.SOUTH);
+        panel.add(btnPanel, BorderLayout.SOUTH);
 
         approveBtn.addActionListener(e -> handleApprove());
         rejectBtn.addActionListener(e -> handleReject());
+
+        return panel;
+    }
+
+    private JPanel createManageDeadlinesPanel() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel titleLabel = new JLabel("Manage All Project Deadlines");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        panel.add(titleLabel, BorderLayout.NORTH);
+
+        // Create a panel for project list
+        JPanel projectListPanel = new JPanel();
+        projectListPanel.setLayout(new BoxLayout(projectListPanel, BoxLayout.Y_AXIS));
+
+        JScrollPane scrollPane = new JScrollPane(projectListPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        // Refresh button
+        JButton refreshBtn = new JButton("Refresh");
+        refreshBtn.addActionListener(e -> {
+            projectListPanel.removeAll();
+            loadAllProjects(projectListPanel);
+            projectListPanel.revalidate();
+            projectListPanel.repaint();
+        });
+
+        // Logout button
+        JButton logoutBtn = new JButton("Logout");
         logoutBtn.addActionListener(e -> {
             dispose();
             new LoginFrame().setVisible(true);
         });
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.add(refreshBtn);
+        bottomPanel.add(logoutBtn);
+        panel.add(bottomPanel, BorderLayout.SOUTH);
+
+        // Load initial projects
+        loadAllProjects(projectListPanel);
+
+        return panel;
+    }
+
+    private void loadAllProjects(JPanel projectListPanel) {
+        projectListPanel.removeAll();
+        List<Project> projects = projectDAO.getAllProjects();
+
+        if (projects.isEmpty()) {
+            projectListPanel.add(new JLabel("No projects found."));
+            return;
+        }
+
+        for (Project project : projects) {
+            JPanel projectPanel = createProjectDeadlinePanel(project, projectListPanel);
+            projectListPanel.add(projectPanel);
+            projectListPanel.add(Box.createVerticalStrut(10));
+        }
+    }
+
+    private JPanel createProjectDeadlinePanel(Project project, JPanel parentPanel) {
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBorder(BorderFactory.createTitledBorder(project.getTitle()));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.anchor = GridBagConstraints.WEST;
+
+        gbc.gridx = 0; gbc.gridy = 0;
+        panel.add(new JLabel("Project ID: " + project.getProjectId()), gbc);
+
+        gbc.gridy = 1;
+        panel.add(new JLabel("Status: " + project.getStatus()), gbc);
+
+        gbc.gridy = 2;
+        panel.add(new JLabel("Current Deadline:"), gbc);
+        gbc.gridx = 1;
+        String currentDeadline = project.getDeadline() != null ? project.getDeadline().toString() : "Not set";
+        panel.add(new JLabel(currentDeadline), gbc);
+
+        gbc.gridx = 0; gbc.gridy = 3;
+        panel.add(new JLabel("New Deadline:"), gbc);
+        gbc.gridx = 1;
+        JTextField newDeadlineField = new JTextField(15);
+        newDeadlineField.setToolTipText("Format: YYYY-MM-DD");
+        panel.add(newDeadlineField, gbc);
+
+        gbc.gridx = 0; gbc.gridy = 4;
+        JButton updateBtn = new JButton("Update Deadline");
+        updateBtn.addActionListener(e -> {
+            String newDeadline = newDeadlineField.getText();
+            if (newDeadline.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter a deadline!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (projectDAO.updateDeadline(project.getProjectId(), newDeadline)) {
+                JOptionPane.showMessageDialog(this, "Deadline updated successfully!");
+                newDeadlineField.setText("");
+                // Refresh the deadline display
+                parentPanel.removeAll();
+                loadAllProjects(parentPanel);
+                parentPanel.revalidate();
+                parentPanel.repaint();
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to update deadline!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        panel.add(updateBtn, gbc);
+
+        return panel;
     }
 
     private void loadPendingProjects() {
