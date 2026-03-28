@@ -103,6 +103,38 @@ public class ProjectDAO {
         return projects;
     }
 
+    public List<Project> getAllProjects() {
+        List<Project> projects = new ArrayList<>();
+        String sql = "SELECT * FROM projects";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String dateStr = rs.getString("deadline");
+                java.sql.Date deadline = null;
+                if (dateStr != null && !dateStr.trim().isEmpty()) {
+                    try {
+                        deadline = java.sql.Date.valueOf(dateStr.split(" ")[0]);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                projects.add(new Project(
+                    rs.getInt("project_id"),
+                    rs.getString("title"),
+                    rs.getString("description"),
+                    rs.getDouble("budget"),
+                    deadline,
+                    rs.getInt("client_id"),
+                    rs.getString("status")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return projects;
+    }
+
     public boolean updateDeadline(int projectId, String newDeadline) {
         String sql = "UPDATE projects SET deadline = ? WHERE project_id = ?";
         try (Connection conn = DBConnection.getConnection();
