@@ -1,3 +1,5 @@
+package main;
+
 import gui.LoginFrame;
 import util.DBConnection;
 import javax.swing.SwingUtilities;
